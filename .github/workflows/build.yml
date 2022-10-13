@@ -56,3 +56,14 @@ jobs:
       uses: codecov/codecov-action@v1
       with:
         file: ${{ github.workspace }}/apollo-*/target/site/jacoco/jacoco.xml
+        
+         # adding on
+  runNonDex:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jdk: [8]
+    steps: # may need to edit and add -DnondexRuns=10 or -DnondexRuns=100
+    - name: Run NonDex
+      run: mvn nondex:nondex
