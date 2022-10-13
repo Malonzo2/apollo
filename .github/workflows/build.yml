@@ -58,12 +58,16 @@ jobs:
         file: ${{ github.workspace }}/apollo-*/target/site/jacoco/jacoco.xml
         
          # adding on
-  runNonDex:
+  runTests:
     needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         jdk: [8]
     steps: # may need to edit and add -DnondexRuns=10 or -DnondexRuns=100
-    - name: Run NonDex
-      run: mvn nondex:nondex
+    - name: Compile the module
+      run:  mvn test-compile -pl apollo-biz -am
+    - name: Run tests without nondex
+      run: mvn -pl apollo-biz test -Dtest=com.ctrip.framework.apollo.biz.service.NamespaceBranchServiceTest#testUpdateBranchGrayRulesWithUpdateOnce  
+    - name: Run tests with nondex shuffle
+      run: mvn -pl apollo-biz edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=com.ctrip.framework.apollo.biz.service.NamespaceBranchServiceTest#testUpdateBranchGrayRulesWithUpdateOnce  
