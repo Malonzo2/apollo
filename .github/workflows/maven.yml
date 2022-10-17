@@ -63,8 +63,8 @@ jobs:
       matrix:
         jdk: [8]
     steps: # may need to edit and add -DnondexRuns=10 or -DnondexRuns=100
-    #- name: Compile the module
-    #  run:  mvn test-compile -pl apollo-biz -am
+    - name: Checkout  
+      uses: actions/checkout@v2
     - name: Run tests without nondex
       run: mvn -pl apollo-biz test -Dtest=com.ctrip.framework.apollo.biz.service.NamespaceBranchServiceTest#testUpdateBranchGrayRulesWithUpdateOnce  
     - name: Run tests with nondex shuffle
