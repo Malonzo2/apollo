@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        jdk: [8, 11, 17]
+        jdk: [8]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK
@@ -45,12 +45,6 @@ jobs:
     - name: JDK 8
       if: matrix.jdk == '8'
       run: mvn -B clean package -P travis jacoco:report -Dmaven.gitcommitid.skip=true
-    - name: JDK 11 
-      if: matrix.jdk == '11'
-      run: mvn -B clean compile -Dmaven.gitcommitid.skip=true
-    - name: JDK 17
-      if: matrix.jdk == '17'
-      run: mvn -B clean compile -Dmaven.gitcommitid.skip=true
     - name: Upload coverage to Codecov
       if: matrix.jdk == '8'
       uses: codecov/codecov-action@v1
