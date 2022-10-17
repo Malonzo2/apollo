@@ -60,6 +60,10 @@ jobs:
     #need to commit
     - name: Checkout  
       uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.jdk }}
     - name: Clean install
       run: mvn clean install  
     - name: Run tests without nondex
