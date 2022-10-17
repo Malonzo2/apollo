@@ -32,6 +32,8 @@ jobs:
       matrix:
         jdk: [8]
     steps: # may need to edit and add -DnondexRuns=10 or -DnondexRuns=100
+    - name: Clean Install
+      run: mvn clean install
     - name: Compile the module
       run:  mvn test-compile -pl apollo-biz -am
     - name: Run tests without nondex
