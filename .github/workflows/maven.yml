@@ -32,6 +32,8 @@ jobs:
       matrix:
         jdk: [8]
     steps: # may need to edit and add -DnondexRuns=10 or -DnondexRuns=100
+    - name: Check maven
+      run: mvn --version
     - name: Clean Install
       run: mvn clean install
     - name: Compile the module
